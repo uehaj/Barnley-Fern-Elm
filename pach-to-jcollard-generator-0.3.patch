@@ -1,0 +1,107 @@
+diff -c -r elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm elm_dependencies/jcollard-generator.new/0.3/Generator/Standard.elm
+*** elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm	2014-09-04 22:10:48.000000000 +0900
+--- elm_dependencies/jcollard-generator.new/0.3/Generator/Standard.elm	2014-09-02 22:39:25.000000000 +0900
+***************
+*** 1,4 ****
+! module Generator.Standard (generator) where
+  
+  {-|
+  
+--- 1,5 ----
+! module Generator.Standard where
+! --module Generator.Standard (generator) where
+  
+  {-|
+  
+***************
+*** 32,40 ****
+  mkStdGen : Int -> Standard
+  mkStdGen s' =
+      let s = max s' -s'
+!         q  = s `div` (magicNum6-1)
+!         s1 = s `mod` (magicNum6-1)
+!         s2 = q `mod` (magicNum7-1)
+      in  Standard (s1+1) (s2+1)                         
+  
+  
+--- 33,41 ----
+  mkStdGen : Int -> Standard
+  mkStdGen s' =
+      let s = max s' -s'
+!         q  = s // (magicNum6-1)
+!         s1 = s % (magicNum6-1)
+!         s2 = q % (magicNum7-1)
+      in  Standard (s1+1) (s2+1)                         
+  
+  
+***************
+*** 55,64 ****
+      -- that in the negative case it rounds up and in the positive case
+      -- it rounds down. Thus half the time it rounds up and half the time it
+      -- rounds down
+!     let k = s1 `div` magicNum1 
+          s1' = magicNum0 * (s1 - k * magicNum1) - k * magicNum2
+          s1'' = if s1' < 0 then s1' + magicNum6 else s1' 
+!         k' = s2 `div` magicNum3 
+          s2' = magicNum4 * (s2 - k' * magicNum3) - k' * magicNum5
+          s2'' = if s2' < 0 then s2' + magicNum7 else s2'
+          z = s1'' - s2''
+--- 56,65 ----
+      -- that in the negative case it rounds up and in the positive case
+      -- it rounds down. Thus half the time it rounds up and half the time it
+      -- rounds down
+!     let k = s1 // magicNum1 
+          s1' = magicNum0 * (s1 - k * magicNum1) - k * magicNum2
+          s1'' = if s1' < 0 then s1' + magicNum6 else s1' 
+!         k' = s2 // magicNum3 
+          s2' = magicNum4 * (s2 - k' * magicNum3) - k' * magicNum5
+          s2'' = if s2' < 0 then s2' + magicNum7 else s2'
+          z = s1'' - s2''
+Only in elm_dependencies/jcollard-generator.new/0.3/Generator: Standard.elm~
+diff -c -r elm_dependencies/jcollard-generator/0.3/Generator.elm elm_dependencies/jcollard-generator.new/0.3/Generator.elm
+*** elm_dependencies/jcollard-generator/0.3/Generator.elm	2014-09-04 22:10:48.000000000 +0900
+--- elm_dependencies/jcollard-generator.new/0.3/Generator.elm	2014-09-02 22:40:01.000000000 +0900
+***************
+*** 1,3 ****
+--- 1,5 ----
++ module Generator where
++ {-
+  module Generator(Generator,
+                   int32,
+                   int32Range,
+***************
+*** 6,11 ****
+--- 8,14 ----
+                   listOf,
+                   minInt32,
+                   maxInt32) where
++     -}
+  
+  {-|
+  The Generator Library provides an interface for generating pure pseudo-random
+***************
+*** 83,93 ****
+                _ -> let (x, state') = generator.next state
+                     in  f (n - 1) (x + acc * b) state'
+          (v, state') = f n 1 generator.state
+!     in  (lo + v `mod` k, { generator | state <- state' })
+  
+  iLogBase : Int -> Int -> Int       
+  iLogBase b i =
+!     if i < b then 1 else 1 + iLogBase b (i `div` b)
+  
+  {-| The maximum value for randomly generated for 32-bit ints -}
+  maxInt32 : Int
+--- 86,96 ----
+                _ -> let (x, state') = generator.next state
+                     in  f (n - 1) (x + acc * b) state'
+          (v, state') = f n 1 generator.state
+!     in  (lo + v % k, { generator | state <- state' })
+  
+  iLogBase : Int -> Int -> Int       
+  iLogBase b i =
+!     if i < b then 1 else 1 + iLogBase b (i // b)
+  
+  {-| The maximum value for randomly generated for 32-bit ints -}
+  maxInt32 : Int
+Only in elm_dependencies/jcollard-generator.new/0.3: Generator.elm~

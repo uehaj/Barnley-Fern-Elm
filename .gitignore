@@ -1,0 +1,7 @@
+dist
+build/*
+cache/*
+*~
+*.bak
+elm_dependencies/
+
