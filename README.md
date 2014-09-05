@@ -1,5 +1,7 @@
 Draw one of famous fractal shape 'Barnsley Fern' in Elm language.
 
+Online demo: http://uehaj.github.io/elm-playground/Barnley-Fern-Elm/Main.html
+
 See http://en.wikipedia.org/wiki/Barnsley_fern .
 
 * how to run
@@ -13,4 +15,4 @@ See http://en.wikipedia.org/wiki/Barnsley_fern .
     mkdir -p build/runtime
     cp `elm -g` build/runtime
     elm -m --set-runtime=./runtime/elm-runtime.js \*.elm
-    # cp -r build/* TO_SERVER # publish
+    cp -r build/* TO_SERVER # publish
