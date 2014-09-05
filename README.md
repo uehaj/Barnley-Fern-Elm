@@ -13,4 +13,4 @@ See http://en.wikipedia.org/wiki/Barnsley_fern .
     mkdir -p build/runtime
     cp `elm -g` build/runtime
     elm -m --set-runtime=./runtime/elm-runtime.js \*.elm
-    # cp -r build TO_SOMEWHERE # publish
+    # cp -r build/* TO_SERVER # publish

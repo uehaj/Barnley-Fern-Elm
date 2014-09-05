@@ -1,4 +1,4 @@
-module Leaf(State, initialState, nextState, plotPoints) where
+module Leaf(State, initialState, nextState, plotPoints, main) where
 import Window
 import Generator
 import Generator.Standard
@@ -61,5 +61,5 @@ drawLeaf : Float -> Int -> [Form]
 drawLeaf dx num = (nextState dx num initialState).points |> plotPoints
 
 main : Signal Element
-main = let disp (w,h) = collage w h (drawLeaf 0.5 1000)
+main = let disp (w,h) = collage w h (drawLeaf 0.84 1000)
        in disp <~ Window.dimensions
