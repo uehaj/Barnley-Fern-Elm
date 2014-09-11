@@ -1,15 +1,14 @@
-diff -c -r elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm elm_dependencies/jcollard-generator.new/0.3/Generator/Standard.elm
-*** elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm	2014-09-04 22:10:48.000000000 +0900
---- elm_dependencies/jcollard-generator.new/0.3/Generator/Standard.elm	2014-09-02 22:39:25.000000000 +0900
+diff -c -r elm_dependencies/jcollard-generator.org/0.3/Generator/Standard.elm elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm
+*** elm_dependencies/jcollard-generator.org/0.3/Generator/Standard.elm	2014-09-11 23:16:14.000000000 +0900
+--- elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm	2014-09-11 23:06:29.000000000 +0900
 ***************
 *** 1,4 ****
 ! module Generator.Standard (generator) where
   
   {-|
   
---- 1,5 ----
-! module Generator.Standard where
-! --module Generator.Standard (generator) where
+--- 1,4 ----
+! module Generator.Standard (generator, Standard) where
   
   {-|
   
@@ -24,7 +23,7 @@ diff -c -r elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm elm_de
       in  Standard (s1+1) (s2+1)                         
   
   
---- 33,41 ----
+--- 32,40 ----
   mkStdGen : Int -> Standard
   mkStdGen s' =
       let s = max s' -s'
@@ -46,7 +45,7 @@ diff -c -r elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm elm_de
           s2' = magicNum4 * (s2 - k' * magicNum3) - k' * magicNum5
           s2'' = if s2' < 0 then s2' + magicNum7 else s2'
           z = s1'' - s2''
---- 56,65 ----
+--- 55,64 ----
       -- that in the negative case it rounds up and in the positive case
       -- it rounds down. Thus half the time it rounds up and half the time it
       -- rounds down
@@ -57,28 +56,10 @@ diff -c -r elm_dependencies/jcollard-generator/0.3/Generator/Standard.elm elm_de
           s2' = magicNum4 * (s2 - k' * magicNum3) - k' * magicNum5
           s2'' = if s2' < 0 then s2' + magicNum7 else s2'
           z = s1'' - s2''
-Only in elm_dependencies/jcollard-generator.new/0.3/Generator: Standard.elm~
-diff -c -r elm_dependencies/jcollard-generator/0.3/Generator.elm elm_dependencies/jcollard-generator.new/0.3/Generator.elm
-*** elm_dependencies/jcollard-generator/0.3/Generator.elm	2014-09-04 22:10:48.000000000 +0900
---- elm_dependencies/jcollard-generator.new/0.3/Generator.elm	2014-09-02 22:40:01.000000000 +0900
-***************
-*** 1,3 ****
---- 1,5 ----
-+ module Generator where
-+ {-
-  module Generator(Generator,
-                   int32,
-                   int32Range,
-***************
-*** 6,11 ****
---- 8,14 ----
-                   listOf,
-                   minInt32,
-                   maxInt32) where
-+     -}
-  
-  {-|
-  The Generator Library provides an interface for generating pure pseudo-random
+Only in elm_dependencies/jcollard-generator/0.3/Generator: Standard.elm~
+diff -c -r elm_dependencies/jcollard-generator.org/0.3/Generator.elm elm_dependencies/jcollard-generator/0.3/Generator.elm
+*** elm_dependencies/jcollard-generator.org/0.3/Generator.elm	2014-09-11 23:16:14.000000000 +0900
+--- elm_dependencies/jcollard-generator/0.3/Generator.elm	2014-09-11 23:05:25.000000000 +0900
 ***************
 *** 83,93 ****
                 _ -> let (x, state') = generator.next state
@@ -92,7 +73,7 @@ diff -c -r elm_dependencies/jcollard-generator/0.3/Generator.elm elm_dependencie
   
   {-| The maximum value for randomly generated for 32-bit ints -}
   maxInt32 : Int
---- 86,96 ----
+--- 83,93 ----
                 _ -> let (x, state') = generator.next state
                      in  f (n - 1) (x + acc * b) state'
           (v, state') = f n 1 generator.state
@@ -104,4 +85,4 @@ diff -c -r elm_dependencies/jcollard-generator/0.3/Generator.elm elm_dependencie
   
   {-| The maximum value for randomly generated for 32-bit ints -}
   maxInt32 : Int
-Only in elm_dependencies/jcollard-generator.new/0.3: Generator.elm~
+Only in elm_dependencies/jcollard-generator/0.3: Generator.elm~

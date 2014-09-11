@@ -8,7 +8,7 @@ See http://en.wikipedia.org/wiki/Barnsley_fern .
 
 ```
     elm-get install
-    patch -d elm_dependencies -p 1 < pach-to-jcollard-generator-0.3.patch
+    patch -d elm_dependencies -p 1 < patch-to-jcollard-generator-0.3.patch
     elm-reactor
 ```
 
