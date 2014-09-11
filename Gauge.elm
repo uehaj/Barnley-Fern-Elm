@@ -3,6 +3,7 @@ module Gauge where
 import Window
 import Mouse
 import Text (..)
+import Debug
 
 {- User input -}
 
@@ -53,7 +54,7 @@ gauge (w,h) x = let
   in
     [ filled red <| polygon [ (x1,y1-2), (x2,y2-2), (x2,y2+2), (x1,y1+2) ]
     , circle 10 |> filled red |> move (mx,y1)
-    , leftAligned (style {defaultStyle|color<-red} (toText . show <| val)) |> toForm |> move (mx, y1+20) ]
+    , leftAligned (style {defaultStyle|color<-red} (toText << show <| val)) |> toForm |> move (mx, y1+20) ]
 
 display : (Int,Int) -> State -> Element
 display (w,h) gaugeState = collage w h (if gaugeState.mouseDown then gauge (w,h) gaugeState.x
@@ -71,4 +72,6 @@ gaugeState : Signal State
 gaugeState = foldp stepGauge defaultGauge input
 
 main : Signal Element
-main = lift2 display Window.dimensions gaugeState
+main =
+    let _ = (Debug.watch "gs" gaugeState)
+    in lift2 display Window.dimensions gaugeState
