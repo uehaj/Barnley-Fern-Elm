@@ -100,4 +100,6 @@ currentState : Signal State
 currentState = foldp nextState initialState inputSignal
 
 main : Signal Element
-main = display <~ currentState ~ Gauge.main ~ Window.width ~ Window.height ~ Mouse.x
+main =
+    let _ = ( (\x -> Debug.watch "state" {x-leafState} ) <~ currentState)
+    in display <~ currentState ~ Gauge.main ~ Window.width ~ Window.height ~ Mouse.x
